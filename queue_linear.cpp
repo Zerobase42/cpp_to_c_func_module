@@ -1,31 +1,33 @@
-#include<stdlib.h>
 typedef struct{
-    int*data;
+    int*buf;
     int front;
     int rear;
-}Queue;
-Queue*newQueue(int size){
-    Queue*q=(Queue*)malloc(sizeof(Queue));
-    q->data=(int*)malloc(sizeof(int)*size);
-    q->front=q->rear=0;
+}queue;
+static inline queue*initQ(int size){
+    queue*q=(queue*)malloc(sizeof(queue));
+    q->buf=(int*)malloc(sizeof(int)*size);
+    q->front=0;
+    q->rear=0;
     return q;
 }
-static inline void pushQ(Queue*q,int x){
-    q->data[q->rear++]=x;
-}
-static inline int popQ(Queue*q){
-    return q->data[q->front++];
-}
-static inline int frontQ(Queue*q){
-    return q->data[q->front];
-}
-static inline int emptyQ(Queue*q){
-    return q->front==q->rear;
-}
-static inline int sizeQ(Queue*q){
-    return q->rear-q->front;
-}
-void delQ(Queue*q){
-    free(q->data);
+static inline void delQ(queue*q){
+    free(q->buf);
     free(q);
 }
+static inline int emptyQ(const queue*q){
+    return q->front==q->rear;
+}
+static inline void pushQ(queue*q,int x){
+    q->buf[q->rear++]=x;
+}
+static inline int popQ(queue*q){
+    return q->buf[q->front++];
+}
+static inline int frontQ(const queue*q){
+    return q->buf[q->front];
+}
+
+/*
+queue*q=initQ(2048); // 로 선언
+
+*/
