@@ -1,9 +1,31 @@
-#include <string.h>
-#define queue(name, size) int name[size], name##_front = 0, name##_rear = 0
-
-#define pushQ(name, val) (name[name##_rear++] = (val))
-#define popQ(name) (name[name##_front++])
-#define frontQ(name) (name[name##_front])
-#define emptyQ(name) (name##_front == name##_rear)
-#define sizeQ(name) (name##_rear - name##_front)
-#define delQ(name)
+#include<stdlib.h>
+typedef struct{
+    int*data;
+    int front;
+    int rear;
+}Queue;
+Queue*newQueue(int size){
+    Queue*q=(Queue*)malloc(sizeof(Queue));
+    q->data=(int*)malloc(sizeof(int)*size);
+    q->front=q->rear=0;
+    return q;
+}
+static inline void pushQ(Queue*q,int x){
+    q->data[q->rear++]=x;
+}
+static inline int popQ(Queue*q){
+    return q->data[q->front++];
+}
+static inline int frontQ(Queue*q){
+    return q->data[q->front];
+}
+static inline int emptyQ(Queue*q){
+    return q->front==q->rear;
+}
+static inline int sizeQ(Queue*q){
+    return q->rear-q->front;
+}
+void delQ(Queue*q){
+    free(q->data);
+    free(q);
+}
