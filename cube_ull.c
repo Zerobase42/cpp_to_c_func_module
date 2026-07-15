@@ -1,7 +1,10 @@
-// cube_ull
+#include <stdio.h>
+#include <unistd.h>
 typedef struct {
     unsigned long long data[3];
 } stCube;
+#define byte unsigned char
+const byte __ord[54]={0,1,2,3,4,5,6,7,8,36,37,38,9,10,11,18,19,20,27,28,29,39,40,41,12,13,14,21,22,23,30,31,32,42,43,44,15,16,17,24,25,26,33,34,35,45,46,47,48,49,50,51,52,53};
 static inline byte cubeGet(const stCube* cube, int idx) {
     int bit = idx * 3;
     int pos = bit >> 6;
